@@ -1,0 +1,420 @@
+{
+	"info": {
+		"_postman_id": "e6543b0e-f5b1-4203-a592-2b7c0d98b387",
+		"name": "Poke_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check Status code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check schema\", function(){\r",
+							"    pm.expect(response.count).to.be.a(\"number\");\r",
+							"    pm.expect(response.next).to.be.a(\"string\");\r",
+							"    pm.expect(response.results).to.be.an(\"Array\");\r",
+							"    pm.expect(response.results[0]).to.be.an(\"Object\");\r",
+							"    pm.expect(response.results[0].name).to.be.a(\"string\");\r",
+							"    pm.expect(response.results[0].url).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify values\", function(){\r",
+							"   pm.expect(response.count).to.eql(1126); \r",
+							"   pm.expect(response.next).to.eql(\"https://pokeapi.co/api/v2/pokemon?offset=3&limit=3\"); \r",
+							"   pm.expect(response.results[0].name).to.eql(\"bulbasaur\");\r",
+							"   pm.expect(response.results[0].url).to.eql(\"https://pokeapi.co/api/v2/pokemon/1/\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/pokemon?limit=3",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pokemon"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check Status code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check schema\", function(){\r",
+							"    pm.expect(response.abilities).to.be.an(\"Array\");\r",
+							"    pm.expect(response.abilities[0]).to.be.an(\"Object\");\r",
+							"    pm.expect(response.abilities[0].ability).to.be.an(\"Object\");\r",
+							"    pm.expect(response.abilities[0].ability.name).to.be.a(\"string\");\r",
+							"    pm.expect(response.abilities[0].ability.url).to.be.a(\"string\");\r",
+							"    pm.expect(response.abilities[0].slot).to.be.a(\"number\");\r",
+							"    pm.expect(response.base_experience).to.be.a(\"number\");\r",
+							"    pm.expect(response.forms).to.be.an(\"Array\");\r",
+							"    pm.expect(response.forms[0]).to.be.an(\"Object\");\r",
+							"    pm.expect(response.forms[0].name).to.be.a(\"string\");\r",
+							"    pm.expect(response.forms[0].url).to.be.a(\"string\");\r",
+							"    pm.expect(response.game_indices).to.be.an(\"Array\");\r",
+							"    pm.expect(response.game_indices[0]).to.be.an(\"Object\");\r",
+							"    pm.expect(response.game_indices[0].game_index).to.be.a(\"number\");\r",
+							"    pm.expect(response.game_indices[0].version).to.be.an(\"Object\");\r",
+							"    pm.expect(response.game_indices[0].version.name).to.be.a(\"string\");\r",
+							"    pm.expect(response.game_indices[0].version.url).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify values\", function(){\r",
+							"   pm.expect(response.abilities[0].ability.name).to.eql(\"overgrow\");\r",
+							"   pm.expect(response.abilities[0].ability.url).to.eql(\"https://pokeapi.co/api/v2/ability/65/\");\r",
+							"   pm.expect(response.abilities[0].slot).to.eql(1);\r",
+							"   pm.expect(response.base_experience).to.eql(64);\r",
+							"   pm.expect(response.forms[0].name).to.eql(\"bulbasaur\");\r",
+							"   pm.expect(response.forms[0].url).to.eql(\"https://pokeapi.co/api/v2/pokemon-form/1/\");\r",
+							"   pm.expect(response.game_indices[0].game_index).to.eql(153);\r",
+							"   pm.expect(response.game_indices[0].version.name).to.eql(\"red\");\r",
+							"   pm.expect(response.game_indices[0].version.url).to.eql(\"https://pokeapi.co/api/v2/version/1/\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/pokemon/1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pokemon",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all region",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check Status code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check schema\", function(){\r",
+							"    pm.expect(response.count).to.be.a(\"number\");\r",
+							"    pm.expect(response.results).to.be.an(\"Array\");\r",
+							"    pm.expect(response.results[0]).to.be.an(\"Object\");\r",
+							"    pm.expect(response.results[0].name).to.be.a(\"string\");\r",
+							"    pm.expect(response.results[0].url).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify values\", function(){\r",
+							"   pm.expect(response.count).to.eql(8); \r",
+							"   pm.expect(response.results[0].name).to.eql(\"generation-i\");\r",
+							"   pm.expect(response.results[0].url).to.eql(\"https://pokeapi.co/api/v2/generation/1/\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/generation",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"generation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get  region by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check Status code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check schema\", function(){\r",
+							"    pm.expect(response .abilities).to.be.an(\"Array\");\r",
+							"    pm.expect(response .id).to.be.a(\"number\");\r",
+							"    pm.expect(response .main_region).to.be.an(\"Object\");\r",
+							"    pm.expect(response .main_region.name).to.be.a(\"string\");\r",
+							"    pm.expect(response .main_region.url).to.be.a(\"string\");\r",
+							"    pm.expect(response .moves).to.be.an(\"Array\");\r",
+							"    pm.expect(response .moves[0]).to.be.an(\"Object\");\r",
+							"    pm.expect(response .moves[0].name).to.be.a(\"string\");\r",
+							"    pm.expect(response .moves[0].url).to.be.a(\"string\");\r",
+							"    pm.expect(response .name).to.be.a(\"string\");\r",
+							"    pm.expect(response .names).to.be.an(\"Array\");\r",
+							"    pm.expect(response .names[0]).to.be.an(\"Object\");\r",
+							"    pm.expect(response .names[0].language).to.be.an(\"Object\");\r",
+							"    pm.expect(response .names[0].language.name).to.be.a(\"string\");\r",
+							"    pm.expect(response .names[0].language.url).to.be.a(\"string\");\r",
+							"    pm.expect(response .names[0].name).to.be.a(\"string\");\r",
+							"    pm.expect(response .pokemon_species).to.be.an(\"Array\");\r",
+							"    pm.expect(response .pokemon_species[0].name).to.be.a(\"String\");\r",
+							"    pm.expect(response .pokemon_species[0].url).to.be.a(\"String\");\r",
+							"    pm.expect(response .types).to.be.an(\"Array\");\r",
+							"    pm.expect(response .types[0].name).to.be.a(\"String\");\r",
+							"    pm.expect(response .types[0].url).to.be.a(\"String\");\r",
+							"    pm.expect(response .version_groups).to.be.an(\"Array\");\r",
+							"    pm.expect(response .version_groups[0].name).to.be.a(\"String\");\r",
+							"    pm.expect(response .version_groups[0].url).to.be.a(\"String\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify values\", function(){\r",
+							"   pm.expect(response .id).to.eql(1); \r",
+							"   pm.expect(response .main_region.name).to.eql(\"kanto\"); \r",
+							"   pm.expect(response .main_region.url).to.eql(\"https://pokeapi.co/api/v2/region/1/\");\r",
+							"   pm.expect(response .moves[0].name).to.eql(\"pound\");\r",
+							"   pm.expect(response .moves[0].url).to.eql(\"https://pokeapi.co/api/v2/move/1/\");\r",
+							"   pm.expect(response .name).to.eql(\"generation-i\"); \r",
+							"   pm.expect(response .names[0].language.name).to.eql(\"ja-Hrkt\");\r",
+							"   pm.expect(response .names[0].language.url).to.eql(\"https://pokeapi.co/api/v2/language/1/\");\r",
+							"   pm.expect(response .names[0].name).to.eql(\"だいいちせだい\");\r",
+							"   pm.expect(response .pokemon_species[0].name).to.eql(\"bulbasaur\");\r",
+							"   pm.expect(response .pokemon_species[0].url).to.eql(\"https://pokeapi.co/api/v2/pokemon-species/1/\");\r",
+							"   pm.expect(response .types[0].name).to.eql(\"normal\");\r",
+							"   pm.expect(response .types[0].url).to.eql(\"https://pokeapi.co/api/v2/type/1/\");\r",
+							"   pm.expect(response .version_groups[0].name).to.eql(\"red-blue\");\r",
+							"   pm.expect(response .version_groups[0].url).to.eql(\"https://pokeapi.co/api/v2/version-group/1/\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/generation/1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"generation",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all pokedex",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check Status code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check schema\", function(){\r",
+							"    pm.expect(response.count).to.be.a(\"number\");\r",
+							"    pm.expect(response.next).to.be.a(\"string\");\r",
+							"    pm.expect(response.results).to.be.an(\"Array\");\r",
+							"    pm.expect(response.results[0]).to.be.an(\"Object\");\r",
+							"    pm.expect(response.results[0].name).to.be.a(\"string\");\r",
+							"    pm.expect(response.results[0].url).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify values\", function(){\r",
+							"   pm.expect(response.count).to.eql(28); \r",
+							"   pm.expect(response.next).to.eql(\"https://pokeapi.co/api/v2/pokedex?offset=20&limit=8\"); \r",
+							"   pm.expect(response.results[0].name).to.eql(\"national\");\r",
+							"   pm.expect(response.results[0].url).to.eql(\"https://pokeapi.co/api/v2/pokedex/1/\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/pokedex",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pokedex"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get pokedex by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check Status code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check schema\", function(){\r",
+							"    pm.expect(response.descriptions).to.be.an(\"Array\");\r",
+							"    pm.expect(response.descriptions[0]).to.be.an(\"Object\");\r",
+							"    pm.expect(response.descriptions[0].description).to.be.a(\"string\");\r",
+							"    pm.expect(response.descriptions[0].language).to.be.an(\"Object\");\r",
+							"    pm.expect(response.descriptions[0].language.name).to.be.a(\"string\");\r",
+							"    pm.expect(response.descriptions[0].language.url).to.be.a(\"string\");\r",
+							"    pm.expect(response.id).to.be.a(\"number\");\r",
+							"    pm.expect(response.name).to.be.a(\"string\");\r",
+							"    pm.expect(response.names).to.be.an(\"Array\");\r",
+							"    pm.expect(response.names[0].language).to.be.an(\"Object\");\r",
+							"    pm.expect(response.names[0].language.name).to.be.a(\"string\");\r",
+							"    pm.expect(response.names[0].language.url).to.be.a(\"string\");\r",
+							"    pm.expect(response.names[0].name).to.be.a(\"string\");\r",
+							"    pm.expect(response.pokemon_entries).to.be.an(\"Array\");\r",
+							"    pm.expect(response.pokemon_entries[0].entry_number).to.be.a(\"number\");\r",
+							"    pm.expect(response.pokemon_entries[0].pokemon_species).to.be.an(\"Object\");\r",
+							"    pm.expect(response.pokemon_entries[0].pokemon_species.name).to.be.a(\"string\");\r",
+							"    pm.expect(response.pokemon_entries[0].pokemon_species.url).to.be.a(\"string\");\r",
+							"    pm.expect(response.region).to.be.an(\"Object\");\r",
+							"    pm.expect(response.region.name).to.be.a(\"string\");\r",
+							"    pm.expect(response.region.url).to.be.a(\"string\");\r",
+							"    pm.expect(response.version_groups).to.be.an(\"Array\");\r",
+							"    pm.expect(response.version_groups[0].name).to.be.a(\"string\");\r",
+							"    pm.expect(response.version_groups[0].url).to.be.a(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify values\", function(){\r",
+							"   pm.expect(response.descriptions[0].description).to.eql(\"Pokédex régional de Kanto dans Rouge/Bleu/Jaune\");\r",
+							"   pm.expect(response.descriptions[0].language.name).to.eql(\"fr\");\r",
+							"   pm.expect(response.descriptions[0].language.url).to.eql(\"https://pokeapi.co/api/v2/language/5/\");\r",
+							"   pm.expect(response.id).to.eql(2);\r",
+							"   pm.expect(response.name).to.eql(\"kanto\");\r",
+							"   pm.expect(response.names[0].language.name).to.eql(\"fr\");\r",
+							"   pm.expect(response.names[0].language.url).to.eql(\"https://pokeapi.co/api/v2/language/5/\");\r",
+							"   pm.expect(response.names[0].name).to.eql(\"Kanto\");\r",
+							"   pm.expect(response.pokemon_entries[0].entry_number).to.eql(1);\r",
+							"   pm.expect(response.pokemon_entries[0].pokemon_species.name).to.eql(\"bulbasaur\");\r",
+							"   pm.expect(response.pokemon_entries[0].pokemon_species.url).to.eql(\"https://pokeapi.co/api/v2/pokemon-species/1/\");\r",
+							"   pm.expect(response.region.name).to.eql(\"kanto\");\r",
+							"   pm.expect(response.region.url).to.eql(\"https://pokeapi.co/api/v2/region/1/\");\r",
+							"   pm.expect(response.version_groups[0].name).to.eql(\"red-blue\");\r",
+							"   pm.expect(response.version_groups[0].url).to.eql(\"https://pokeapi.co/api/v2/version-group/1/\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/pokedex/2",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"pokedex",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "https://pokeapi.co/api/v2",
+			"type": "string"
+		}
+	]
+}
